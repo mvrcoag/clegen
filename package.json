@@ -1,0 +1,44 @@
+{
+  "name": "agmod",
+  "version": "1.0.0",
+  "description": "Generate modules with clean architecture for scalable projects",
+  "main": "dist/index.js",
+  "bin": {
+    "agmod": "dist/index.js"
+  },
+  "scripts": {
+    "start": "node dist/index.js",
+    "prepare": "rm -rf dist && npx tsc && npm run copyTemplates",
+    "copyTemplates": "npx cross-env NODE_ENV=production node scripts/copyTemplates.js",
+    "upload": "npm publish --access public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvrcoag/agmod.git"
+  },
+  "keywords": [
+    "module",
+    "architecture",
+    "generator",
+    "clean",
+    "clean architecture",
+    "hexagonal architecture",
+    "services"
+  ],
+  "author": "mvrcoag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mvrcoag/agmod/issues"
+  },
+  "homepage": "https://github.com/mvrcoag/agmod#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "cross-env": "^7.0.3",
+    "fs-extra": "^11.2.0",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "enquirer": "^2.4.1",
+    "template-file": "^6.0.1"
+  }
+}
