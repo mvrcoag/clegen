@@ -6,9 +6,8 @@ import * as fs from "fs/promises";
 import * as path from "path";
 
 async function main() {
-  console.log("agmod - Agnostic Module Generator");
+  console.log("Clegen - Clean Generator");
   console.log("By @mvrcoag\n");
-  console.log("This tool will help you generate a module in your project.\n");
 
   const { moduleName } = await prompt<{
     moduleName: string;
