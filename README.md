@@ -29,7 +29,7 @@ The tool will guide you through the process of creating a new module, such as "U
 ## Example
 Here's an example of how you can use clegen to create a new "Product" module:
 
-![CLI flow](./public/cli-flow.png)
+![CLI flow](./public/cli-flow.gif)
 
 And the result:
 
