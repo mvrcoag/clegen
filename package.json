@@ -1,6 +1,6 @@
 {
   "name": "clegen",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Generate modules with clean architecture for Typescript projects",
   "main": "dist/index.js",
   "bin": {
@@ -8,8 +8,8 @@
   },
   "scripts": {
     "start": "node dist/index.js",
-    "prepare": "rm -rf dist && npx tsc && npm run copyTemplates",
-    "copyTemplates": "npx cross-env NODE_ENV=production node scripts/copyTemplates.js",
+    "prepare": "rm -rf dist && npx tsc && npm run copy",
+    "copy": "npx cross-env NODE_ENV=production node scripts/copy.js",
     "upload": "npm publish --access public"
   },
   "repository": {

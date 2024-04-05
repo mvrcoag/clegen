@@ -5,6 +5,8 @@ import { toCamelCase, toPascalCase } from "./utils";
 import * as fs from "fs/promises";
 import * as path from "path";
 
+const PATH_TEMPLATES = `fixtures/templates/module/`;
+
 export class ModuleGenerator {
   public async run() {
     const moduleName = await this.getModuleName();
@@ -133,11 +135,11 @@ export class ModuleGenerator {
     }
 
     const entityTemplate = await fs.readFile(
-      `${directory}/templates/domain/Entity.md`,
+      `${directory}/${PATH_TEMPLATES}domain/Entity.md`,
       "utf-8"
     );
     const entityRepositoryTemplate = await fs.readFile(
-      `${directory}/templates/domain/EntityRepository.md`,
+      `${directory}/${PATH_TEMPLATES}domain/EntityRepository.md`,
       "utf-8"
     );
 
@@ -145,20 +147,20 @@ export class ModuleGenerator {
 
     if (applicationLayer === "service") {
       entityApplicationTemplate = await fs.readFile(
-        `${directory}/templates/application/EntityService.md`,
+        `${directory}/${PATH_TEMPLATES}application/EntityService.md`,
         "utf-8"
       );
     }
 
     if (applicationLayer === "usecase") {
       entityApplicationTemplate = await fs.readFile(
-        `${directory}/templates/application/UseCase/UseCase.md`,
+        `${directory}/${PATH_TEMPLATES}application/UseCase/UseCase.md`,
         "utf-8"
       );
     }
 
     const entityRepositoryImplementationTemplate = await fs.readFile(
-      `${directory}/templates/infrastructure/Impl/ImplEntityRepository.md`,
+      `${directory}/${PATH_TEMPLATES}infrastructure/Impl/ImplEntityRepository.md`,
       "utf-8"
     );
 

@@ -5,6 +5,8 @@ import { toPascalCase } from "./utils";
 import * as fs from "fs/promises";
 import * as path from "path";
 
+const PATH_TEMPLATES = `fixtures/templates/usecase/`;
+
 export class UseCaseGenerator {
   public async run() {
     const moduleName = await this.getModuleName();
@@ -82,7 +84,7 @@ export class UseCaseGenerator {
     const directory = path.resolve(__dirname);
 
     const useCaseTemplate = await fs.readFile(
-      `${directory}/templates/application/UseCase/UseCase.md`,
+      `${directory}/${PATH_TEMPLATES}/UseCase.md`,
       "utf-8"
     );
 
