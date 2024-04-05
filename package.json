@@ -23,7 +23,8 @@
     "clean",
     "clean architecture",
     "hexagonal architecture",
-    "services"
+    "services",
+    "react generator"
   ],
   "author": "mvrcoag",
   "license": "MIT",

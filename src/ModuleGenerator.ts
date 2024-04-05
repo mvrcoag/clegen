@@ -138,6 +138,7 @@ export class ModuleGenerator {
       `${directory}/${PATH_TEMPLATES}domain/Entity.md`,
       "utf-8"
     );
+
     const entityRepositoryTemplate = await fs.readFile(
       `${directory}/${PATH_TEMPLATES}domain/EntityRepository.md`,
       "utf-8"
@@ -188,6 +189,7 @@ export class ModuleGenerator {
       `${modulePath}/domain/${toPascalCase(moduleName)}.ts`,
       entity
     );
+
     await fs.writeFile(
       `${modulePath}/domain/${toPascalCase(moduleName)}Repository.ts`,
       entityRepository
@@ -214,6 +216,7 @@ export class ModuleGenerator {
           toPascalCase(repositoryImplementation),
         { recursive: true }
       );
+
       await fs.writeFile(
         `${modulePath}/infrastructure/${toPascalCase(
           repositoryImplementation
