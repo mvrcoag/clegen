@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import { prompt } from "enquirer";
-import { toCamelCase, toPascalCase } from "./utils";
+import { normalizeInputToCamelCase, normalizeInputToPascalCase } from "./utils";
 import * as fs from "fs/promises";
 import * as path from "path";
 
@@ -31,7 +31,8 @@ export class ModuleGenerator {
     }>({
       type: "input",
       name: "moduleName",
-      message: "What is the name of the module? (e.g. User)",
+      message:
+        "What is the name of the module? (e.g. User, Reset Password, etc.)",
       required: true,
     });
 
@@ -45,7 +46,7 @@ export class ModuleGenerator {
       type: "input",
       name: "modulePath",
       message: "What is the path of the module? (e.g. ./src/lib/User)",
-      initial: `./src/lib/${toPascalCase(moduleName)}`,
+      initial: `./src/lib/${normalizeInputToPascalCase(moduleName)}`,
       required: true,
     });
 
@@ -167,44 +168,53 @@ export class ModuleGenerator {
 
     const entity = entityTemplate.replace(
       /{{ Entity }}/g,
-      toPascalCase(moduleName)
+      normalizeInputToPascalCase(moduleName)
     );
 
     const entityRepository = entityRepositoryTemplate.replace(
       /{{ Entity }}/g,
-      toPascalCase(moduleName)
+      normalizeInputToPascalCase(moduleName)
     );
 
     const entityApplication = entityApplicationTemplate
-      .replace(/{{ Entity }}/g, toPascalCase(moduleName))
-      .replace(/{{ entity }}/g, toCamelCase(moduleName))
+      .replace(/{{ Entity }}/g, normalizeInputToPascalCase(moduleName))
+      .replace(/{{ entity }}/g, normalizeInputToCamelCase(moduleName))
       .replace(/{{ UseCase }}/g, "Finder");
 
     const entityRepositoryImplementation =
       entityRepositoryImplementationTemplate
-        .replace(/{{ Entity }}/g, toPascalCase(moduleName))
-        .replace(/{{ Impl }}/g, toPascalCase(repositoryImplementation));
+        .replace(/{{ Entity }}/g, normalizeInputToPascalCase(moduleName))
+        .replace(
+          /{{ Impl }}/g,
+          normalizeInputToPascalCase(repositoryImplementation)
+        );
 
     await fs.writeFile(
-      `${modulePath}/domain/${toPascalCase(moduleName)}.ts`,
+      `${modulePath}/domain/${normalizeInputToPascalCase(moduleName)}.ts`,
       entity
     );
 
     await fs.writeFile(
-      `${modulePath}/domain/${toPascalCase(moduleName)}Repository.ts`,
+      `${modulePath}/domain/${normalizeInputToPascalCase(
+        moduleName
+      )}Repository.ts`,
       entityRepository
     );
 
     if (applicationLayer === "service") {
       await fs.writeFile(
-        `${modulePath}/application/${toPascalCase(moduleName)}Service.ts`,
+        `${modulePath}/application/${normalizeInputToPascalCase(
+          moduleName
+        )}Service.ts`,
         entityApplication
       );
     }
 
     if (applicationLayer === "usecase") {
       await fs.writeFile(
-        `${modulePath}/application/Finder/${toPascalCase(moduleName)}Finder.ts`,
+        `${modulePath}/application/Finder/${normalizeInputToPascalCase(
+          moduleName
+        )}Finder.ts`,
         entityApplication
       );
     }
@@ -213,16 +223,16 @@ export class ModuleGenerator {
       await fs.mkdir(
         modulePath +
           "/infrastructure/" +
-          toPascalCase(repositoryImplementation),
+          normalizeInputToPascalCase(repositoryImplementation),
         { recursive: true }
       );
 
       await fs.writeFile(
-        `${modulePath}/infrastructure/${toPascalCase(
+        `${modulePath}/infrastructure/${normalizeInputToPascalCase(
           repositoryImplementation
-        )}/${toPascalCase(repositoryImplementation)}${toPascalCase(
-          moduleName
-        )}Repository.ts`,
+        )}/${normalizeInputToPascalCase(
+          repositoryImplementation
+        )}${normalizeInputToPascalCase(moduleName)}Repository.ts`,
         entityRepositoryImplementation
       );
     }

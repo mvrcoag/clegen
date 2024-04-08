@@ -1,25 +1,25 @@
 #! /usr/bin/env node
 
-export function toPascalCase(input: string): string {
-  const words = input.split(" ");
+export function normalizeInputToPascalCase(input: string): string {
+  const words = input.toLowerCase().split(" ");
 
-  const capitalizedWords = words.map((word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  const normalizedWords = words.map((word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   });
 
-  return capitalizedWords.join("");
+  const normalizedInput = normalizedWords.join("");
+
+  return normalizedInput;
 }
 
-export function toCamelCase(input: string): string {
-  const words = input.split(" ");
+export function normalizeInputToCamelCase(input: string): string {
+  const words = input.toLowerCase().split(" ");
 
-  const capitalizedWords = words.map((word, index) => {
-    if (index === 0) {
-      return word.toLowerCase(); // Lowercase the first word
-    } else {
-      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-    }
-  });
+  const firstWord = words[0].charAt(0).toLowerCase() + words[0].slice(1);
 
-  return capitalizedWords.join("");
+  const normalizedWords = [firstWord, ...words.slice(1)];
+
+  const normalizedInput = normalizedWords.join("");
+
+  return normalizedInput;
 }

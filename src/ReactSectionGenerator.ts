@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import { prompt } from "enquirer";
-import { toPascalCase } from "./utils";
+import { normalizeInputToPascalCase } from "./utils";
 import * as fs from "fs/promises";
 import * as path from "path";
 
@@ -22,7 +22,8 @@ export class ReactSectionGenerator {
     }>({
       type: "input",
       name: "sectionName",
-      message: "What is the name of the section? (e.g. User)",
+      message:
+        "What is the name of the section? (e.g. User, Reset Password, etc.)",
       required: true,
     });
 
@@ -36,7 +37,7 @@ export class ReactSectionGenerator {
       type: "input",
       name: "sectionPath",
       message: "What is the path of the section? (e.g. ./src/sections/User)",
-      initial: `./src/sections/${toPascalCase(sectionName)}`,
+      initial: `./src/sections/${normalizeInputToPascalCase(sectionName)}`,
       required: true,
     });
 
@@ -89,41 +90,41 @@ export class ReactSectionGenerator {
 
     const view = viewTemplate.replace(
       /{{ Section }}/g,
-      toPascalCase(sectionName)
+      normalizeInputToPascalCase(sectionName)
     );
 
     const useView = useViewTemplate.replace(
       /{{ Section }}/g,
-      toPascalCase(sectionName)
+      normalizeInputToPascalCase(sectionName)
     );
 
     const form = formTemplate.replace(
       /{{ Section }}/g,
-      toPascalCase(sectionName)
+      normalizeInputToPascalCase(sectionName)
     );
 
     const useForm = useFormTemplate.replace(
       /{{ Section }}/g,
-      toPascalCase(sectionName)
+      normalizeInputToPascalCase(sectionName)
     );
 
     await fs.writeFile(
-      `${sectionPath}/${toPascalCase(sectionName)}View.ts`,
+      `${sectionPath}/${normalizeInputToPascalCase(sectionName)}View.tsx`,
       view
     );
 
     await fs.writeFile(
-      `${sectionPath}/use${toPascalCase(sectionName)}View.ts`,
+      `${sectionPath}/use${normalizeInputToPascalCase(sectionName)}View.ts`,
       useView
     );
 
     await fs.writeFile(
-      `${sectionPath}/${toPascalCase(sectionName)}Form.ts`,
+      `${sectionPath}/${normalizeInputToPascalCase(sectionName)}Form.tsx`,
       form
     );
 
     await fs.writeFile(
-      `${sectionPath}/use${toPascalCase(sectionName)}Form.ts`,
+      `${sectionPath}/use${normalizeInputToPascalCase(sectionName)}Form.ts`,
       useForm
     );
   }

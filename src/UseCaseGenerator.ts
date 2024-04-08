@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import { prompt } from "enquirer";
-import { toPascalCase } from "./utils";
+import { normalizeInputToPascalCase } from "./utils";
 import * as fs from "fs/promises";
 import * as path from "path";
 
@@ -23,7 +23,8 @@ export class UseCaseGenerator {
     }>({
       type: "input",
       name: "moduleName",
-      message: "What is the name of the module? (e.g. User)",
+      message:
+        "What is the name of the module? (e.g. User, Reset Password, etc.)",
       required: true,
     });
 
@@ -51,9 +52,9 @@ export class UseCaseGenerator {
       name: "useCasePath",
       message:
         "What is the path of the use case? (e.g. ./src/lib/User/application/UserCreator)",
-      initial: `./src/lib/${toPascalCase(
+      initial: `./src/lib/${normalizeInputToPascalCase(
         moduleName
-      )}/application/${toPascalCase(useCaseName)}`,
+      )}/application/${normalizeInputToPascalCase(useCaseName)}`,
       required: true,
     });
 
@@ -89,13 +90,13 @@ export class UseCaseGenerator {
     );
 
     const useCase = useCaseTemplate
-      .replace(/{{ Entity }}/g, toPascalCase(moduleName))
-      .replace(/{{ UseCase }}/g, toPascalCase(useCaseName));
+      .replace(/{{ Entity }}/g, normalizeInputToPascalCase(moduleName))
+      .replace(/{{ UseCase }}/g, normalizeInputToPascalCase(useCaseName));
 
     await fs.writeFile(
-      `${useCasePath}/${toPascalCase(moduleName)}${toPascalCase(
-        useCaseName
-      )}.ts`,
+      `${useCasePath}/${normalizeInputToPascalCase(
+        moduleName
+      )}${normalizeInputToPascalCase(useCaseName)}.ts`,
       useCase
     );
   }
