@@ -1,15 +1,15 @@
 #! /usr/bin/env node
 
-import { GeneratorSelector } from "./GeneratorSelector";
+import { GeneratorSelector } from "./Generators/GeneratorSelector";
 
 async function main() {
-  console.log("Clegen - Clean Generator v1.0.1");
+  console.log("Clegen - Clean Generator v2.0.0");
   console.log("By @mvrcoag\n");
 
   await new GeneratorSelector().run();
 
   console.log("\n");
-  console.log("Success!");
+  console.log("Success! 🎉");
 }
 
 main()

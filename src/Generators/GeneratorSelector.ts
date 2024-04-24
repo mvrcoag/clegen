@@ -2,7 +2,6 @@
 
 import { prompt } from "enquirer";
 import { ModuleGenerator } from "./ModuleGenerator";
-import { UseCaseGenerator } from "./UseCaseGenerator";
 import { ReactSectionGenerator } from "./ReactSectionGenerator";
 
 const BACKEND_ORIENTED_CHAR = "🧩";
@@ -20,15 +19,11 @@ export class GeneratorSelector {
       choices: [
         {
           name: "reactsection",
-          message: `Generate a react section ${FRONTEND_ORIENTED_CHAR}`,
+          message: `React full section ${FRONTEND_ORIENTED_CHAR}`,
         },
         {
           name: "module",
-          message: `Generate a full module ${BACKEND_ORIENTED_CHAR}`,
-        },
-        {
-          name: "usecase",
-          message: `Generate a usecase ${BACKEND_ORIENTED_CHAR}`,
+          message: `Typescript full module ${BACKEND_ORIENTED_CHAR}`,
         },
       ],
       message: "What do you want to generate?",
@@ -38,10 +33,6 @@ export class GeneratorSelector {
 
     if (generator === "module") {
       await new ModuleGenerator().run();
-    }
-
-    if (generator === "usecase") {
-      await new UseCaseGenerator().run();
     }
 
     if (generator === "reactsection") {
