@@ -2,28 +2,22 @@
 
 import { prompt } from "enquirer";
 import { ModuleGenerator } from "./ModuleGenerator";
-import { ReactSectionGenerator } from "./ReactSectionGenerator";
-
-const BACKEND_ORIENTED_CHAR = "🧩";
-const FRONTEND_ORIENTED_CHAR = "⚡";
+import { SectionGenerator } from "./SectionGenerator";
 
 export class GeneratorSelector {
   async run() {
-    console.log(`${BACKEND_ORIENTED_CHAR} stands for "backend oriented"`);
-    console.log(`${FRONTEND_ORIENTED_CHAR} stands for "frontend oriented"\n`);
-
     const { generator } = await prompt<{
-      generator: "module" | "usecase" | "reactsection";
+      generator: "module" | "section";
     }>({
       type: "select",
       choices: [
         {
-          name: "reactsection",
-          message: `React full section ${FRONTEND_ORIENTED_CHAR}`,
+          name: "module",
+          message: `Backend module`,
         },
         {
-          name: "module",
-          message: `Typescript full module ${BACKEND_ORIENTED_CHAR}`,
+          name: "section",
+          message: `Frontend section`,
         },
       ],
       message: "What do you want to generate?",
@@ -35,8 +29,8 @@ export class GeneratorSelector {
       await new ModuleGenerator().run();
     }
 
-    if (generator === "reactsection") {
-      await new ReactSectionGenerator().run();
+    if (generator === "section") {
+      await new SectionGenerator().run();
     }
   }
 }

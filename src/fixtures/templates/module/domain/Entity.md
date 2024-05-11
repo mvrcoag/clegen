@@ -1,1 +1,1 @@
-export interface {{ Entity }} {}
+export class {{ Entity }} {}

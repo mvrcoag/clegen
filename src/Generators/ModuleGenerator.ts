@@ -13,7 +13,7 @@ export class ModuleGenerator {
       await Generator.getRepositoryImplementation(
         "Prisma, TypeORM, PostgreSQL, etc."
       );
-    await Generator.generateModuleStructure(modulePath);
+    await Generator.generateModuleStructure(moduleName, modulePath);
 
     const files: FileFromContent[] = [
       {
@@ -34,8 +34,8 @@ export class ModuleGenerator {
         contentMap: {
           "{{ Entity }}": moduleName,
         },
-        contentPath: `${PATH_TEMPLATES}/application/EntityService.md`,
-        destinePath: `${modulePath}/application/${moduleName}Service.ts`,
+        contentPath: `${PATH_TEMPLATES}/application/EntityGetAll/EntityGetAll.md`,
+        destinePath: `${modulePath}/application/${moduleName}GetAll/${moduleName}GetAll.ts`,
       },
     ];
 

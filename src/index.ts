@@ -3,7 +3,7 @@
 import { GeneratorSelector } from "./Generators/GeneratorSelector";
 
 async function main() {
-  console.log("Clegen - Clean Generator v2.0.0");
+  console.log("Clegen - Clean Generator v3.0.0");
   console.log("By @mvrcoag\n");
 
   await new GeneratorSelector().run();

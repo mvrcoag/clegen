@@ -92,10 +92,11 @@ export class Generator {
     await fs.writeFile(destinePath, fileContent);
   }
 
-  static async generateModuleStructure(modulePath: string) {
+  static async generateModuleStructure(moduleName: string, modulePath: string) {
     await fs.mkdir(modulePath, { recursive: true });
     await fs.mkdir(modulePath + "/domain", { recursive: true });
     await fs.mkdir(modulePath + "/application", { recursive: true });
+    await fs.mkdir(modulePath + `/application/${moduleName}GetAll`, { recursive: true });
     await fs.mkdir(modulePath + "/infrastructure", { recursive: true });
   }
 }

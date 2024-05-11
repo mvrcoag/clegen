@@ -1,9 +1,8 @@
 #! /usr/bin/env node
 
 import { FileFromContent, Generator } from "./Generator";
-import * as fs from "fs/promises";
 
-export class ReactSectionGenerator {
+export class SectionGenerator {
   public async run() {
     const moduleName = await Generator.getModuleName();
     const modulePath = await Generator.getModulePath(
@@ -15,10 +14,7 @@ export class ReactSectionGenerator {
       await Generator.getRepositoryImplementation(
         "Axios, Fetch, LocalStorage, etc."
       );
-    await Generator.generateModuleStructure(modulePath);
-
-    await fs.mkdir(`${modulePath}/application/components`, { recursive: true });
-    await fs.mkdir(`${modulePath}/application/hooks`, { recursive: true });
+    await Generator.generateModuleStructure(moduleName, modulePath);
 
     const files: FileFromContent[] = [
       {
@@ -39,15 +35,8 @@ export class ReactSectionGenerator {
         contentMap: {
           "{{ Entity }}": moduleName,
         },
-        contentPath: `fixtures/templates/module/application/EntityService.md`,
-        destinePath: `${modulePath}/application/${moduleName}Service.ts`,
-      },
-      {
-        contentMap: {
-          "{{ Entity }}": moduleName,
-        },
-        contentPath: `fixtures/templates/reactsection/EntityView.md`,
-        destinePath: `${modulePath}/application/components/${moduleName}View.tsx`,
+        contentPath: `fixtures/templates/module/application/EntityGetAll/EntityGetAll.md`,
+        destinePath: `${modulePath}/application/${moduleName}GetAll/${moduleName}GetAll.ts`,
       },
     ];
 
@@ -65,5 +54,10 @@ export class ReactSectionGenerator {
     for (const file of files) {
       await Generator.generateFileFromContent(file);
     }
+
+    console.log("\nRemember:");
+    console.log(
+      `- The framework files (e.g. React, Angular, Vue) belong to the infrastructure layer.`
+    );
   }
 }
