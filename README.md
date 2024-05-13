@@ -1,13 +1,13 @@
 <div align="center">
   <br>
   <h1>Clegen 🧩</h1>
-  <strong>Generate modules with clean architecture for Typescript projects</strong>
+  <strong>Generate modules with clean code for Typescript projects</strong>
 </div>
 <br>
 
 ## What is Clegen?
 
-Clegen (clean generator) is a command-line tool designed to scaffold clean architecture modules in TypeScript projects.
+Clegen (clean generator) is a command-line tool designed to scaffold clean code modules in TypeScript projects.
 
 ## Installation
 

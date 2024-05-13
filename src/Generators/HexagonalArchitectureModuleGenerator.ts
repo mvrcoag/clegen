@@ -2,17 +2,16 @@
 
 import { FileFromContent, Generator } from "./Generator";
 
-export class SectionGenerator {
+const PATH_TEMPLATES = `fixtures/templates/hexarc`;
+
+export class HexagonalArchitectureModuleGenerator {
   public async run() {
     const moduleName = await Generator.getModuleName();
-    const modulePath = await Generator.getModulePath(
-      moduleName,
-      "./src/sections"
-    );
+    const modulePath = await Generator.getModulePath(moduleName, "./src/lib");
     await Generator.ensureModuleNotExists(modulePath);
     const { repositoryImplementation, withRepositoryImplementation } =
       await Generator.getRepositoryImplementation(
-        "Axios, Fetch, LocalStorage, etc."
+        "Prisma, TypeORM, PostgreSQL, etc."
       );
     await Generator.generateModuleStructure(moduleName, modulePath);
 
@@ -21,21 +20,21 @@ export class SectionGenerator {
         contentMap: {
           "{{ Entity }}": moduleName,
         },
-        contentPath: `fixtures/templates/module/domain/Entity.md`,
+        contentPath: `${PATH_TEMPLATES}/domain/Entity.md`,
         destinePath: `${modulePath}/domain/${moduleName}.ts`,
       },
       {
         contentMap: {
           "{{ Entity }}": moduleName,
         },
-        contentPath: `fixtures/templates/module/domain/EntityRepository.md`,
+        contentPath: `${PATH_TEMPLATES}/domain/EntityRepository.md`,
         destinePath: `${modulePath}/domain/${moduleName}Repository.ts`,
       },
       {
         contentMap: {
           "{{ Entity }}": moduleName,
         },
-        contentPath: `fixtures/templates/module/application/EntityGetAll/EntityGetAll.md`,
+        contentPath: `${PATH_TEMPLATES}/application/EntityGetAll/EntityGetAll.md`,
         destinePath: `${modulePath}/application/${moduleName}GetAll/${moduleName}GetAll.ts`,
       },
     ];
@@ -46,7 +45,7 @@ export class SectionGenerator {
           "{{ Entity }}": moduleName,
           "{{ Impl }}": repositoryImplementation,
         },
-        contentPath: `fixtures/templates/module/infrastructure/ImplEntityRepository.md`,
+        contentPath: `${PATH_TEMPLATES}/infrastructure/ImplEntityRepository.md`,
         destinePath: `${modulePath}/infrastructure/${repositoryImplementation}${moduleName}Repository.ts`,
       });
     }
@@ -54,10 +53,5 @@ export class SectionGenerator {
     for (const file of files) {
       await Generator.generateFileFromContent(file);
     }
-
-    console.log("\nRemember:");
-    console.log(
-      `- The framework files (e.g. React, Angular, Vue) belong to the infrastructure layer.`
-    );
   }
 }

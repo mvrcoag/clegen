@@ -1,7 +1,7 @@
 {
   "name": "clegen",
-  "version": "3.0.0",
-  "description": "Generate modules with clean architecture for Typescript projects",
+  "version": "4.0.0",
+  "description": "Generate modules with clean code for Typescript projects",
   "main": "dist/index.js",
   "bin": {
     "clegen": "dist/index.js"
