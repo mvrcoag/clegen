@@ -1,17 +1,11 @@
-#! /usr/bin/env node
-
 import * as fs from "fs/promises";
 import { FileFromContent, Generator } from "./Generator";
 
-export class ReactModuleGenerator {
-  public async run() {
+export class ServiceArchitectureModuleGenerator {
+  async run() {
     const moduleName = await Generator.getModuleName();
-    const modulePath = await Generator.getModulePath(
-      moduleName,
-      "./src/sections"
-    );
+    const modulePath = await Generator.getModulePath(moduleName, "./src/lib");
     await Generator.ensureModuleNotExists(modulePath);
-
     await this.generateSectionStructure(modulePath);
 
     const files: FileFromContent[] = [
@@ -19,22 +13,15 @@ export class ReactModuleGenerator {
         contentMap: {
           "{{ Entity }}": moduleName,
         },
-        contentPath: `fixtures/templates/react/Types.md`,
+        contentPath: `fixtures/templates/services/Types.md`,
         destinePath: `${modulePath}/${moduleName}Types.ts`,
       },
       {
         contentMap: {
           "{{ Entity }}": moduleName,
         },
-        contentPath: `fixtures/templates/react/View.md`,
-        destinePath: `${modulePath}/${moduleName}View.tsx`,
-      },
-      {
-        contentMap: {
-          "{{ Entity }}": moduleName,
-        },
-        contentPath: `fixtures/templates/react/useView.md`,
-        destinePath: `${modulePath}/use${moduleName}View.tsx`,
+        contentPath: `fixtures/templates/services/Service.md`,
+        destinePath: `${modulePath}/${moduleName}Service.ts`,
       },
     ];
 
