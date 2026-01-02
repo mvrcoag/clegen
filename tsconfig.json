@@ -5,9 +5,8 @@
     "declaration": true,
     "outDir": "./dist",
     "rootDir": "./src",
-
+    "skipLibCheck": true,
+    "strict": false,
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"],
 }
