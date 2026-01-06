@@ -5,6 +5,7 @@ import { TemplateProvider } from "../core/interfaces/TemplateProvider";
 import { ExpressPlugin } from "../plugins/frameworks/ExpressPlugin";
 import { HonoPlugin } from "../plugins/frameworks/HonoPlugin";
 import { NextJsPlugin } from "../plugins/frameworks/NextJsPlugin";
+import { NoFrameworkPlugin } from "../plugins/frameworks/NoFrameworkPlugin";
 
 // Template providers
 import { ServiceTemplate } from "../plugins/templates/ServiceTemplate";
@@ -28,6 +29,7 @@ import { EntityTemplate } from "../plugins/templates/EntityTemplate";
  * 3. Add it to this array
  */
 export const frameworkPlugins: FrameworkPlugin[] = [
+  new NoFrameworkPlugin(),
   new ExpressPlugin(),
   new HonoPlugin(),
   new NextJsPlugin(),
