@@ -1,6 +1,6 @@
 {
   "name": "clegen",
-  "version": "6.0.0",
+  "version": "6.1.0",
   "description": "Generate modules with clean code for Typescript projects",
   "main": "dist/index.js",
   "bin": {

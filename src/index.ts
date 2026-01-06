@@ -28,7 +28,7 @@ async function main() {
   console.log("║   ╚═════╝╚══════╝╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ║");
   console.log("║                                                        ║");
   console.log("║           Clean Architecture Module Generator          ║");
-  console.log("║                     v6.0.0                             ║");
+  console.log("║                     v6.1.0                             ║");
   console.log("║                                                        ║");
   console.log("║                   By @mvrcoag                          ║");
   console.log("║                                                        ║");
