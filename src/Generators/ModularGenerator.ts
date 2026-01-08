@@ -16,6 +16,7 @@ import {
 } from "../config/plugins.config";
 import { ParsedCliConfig } from "../core/types/CliOptions";
 import { groupElementsByConcept } from "../core/types/ConceptMapping";
+import { toCamelCase, toPascalCase } from "../core/utils/StringUtils";
 
 /**
  * Modular generator with extensible plugin architecture
@@ -317,8 +318,8 @@ export class ModularGenerator implements Generator {
   private buildGenerationContext(config: ModuleConfig): GenerationContext {
     return {
       moduleName: config.moduleName,
-      entityName: config.moduleName,
-      entityNameLowercase: this.toLowerCaseFirst(config.moduleName),
+      entityName: toPascalCase(config.moduleName),
+      entityNameLowercase: toCamelCase(config.moduleName),
       framework: config.framework,
       implementationType: config.implementationType,
     };
@@ -330,12 +331,5 @@ export class ModularGenerator implements Generator {
   private getGroupForElement(element: ModuleElement): ConceptGroup {
     const { ELEMENT_TO_GROUP } = require("../core/types/ConceptMapping");
     return ELEMENT_TO_GROUP[element];
-  }
-
-  /**
-   * Convert first character to lowercase
-   */
-  private toLowerCaseFirst(str: string): string {
-    return str.charAt(0).toLowerCase() + str.slice(1);
   }
 }

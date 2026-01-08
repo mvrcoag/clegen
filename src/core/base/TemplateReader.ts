@@ -1,6 +1,7 @@
 import * as fs from "fs/promises";
 import * as path from "path";
 import { GenerationContext } from "../types/GenerationContext";
+import { toCamelCase, toPascalCase } from "../utils/StringUtils";
 
 /**
  * Base class for reading and processing template files
@@ -115,16 +116,9 @@ export class TemplateReader {
   ): GenerationContext {
     return {
       moduleName,
-      entityName: moduleName,
-      entityNameLowercase: this.toLowerCaseFirst(moduleName),
+      entityName: toPascalCase(moduleName),
+      entityNameLowercase: toCamelCase(moduleName),
       ...additionalContext,
     };
-  }
-
-  /**
-   * Convert first character to lowercase
-   */
-  private toLowerCaseFirst(str: string): string {
-    return str.charAt(0).toLowerCase() + str.slice(1);
   }
 }
