@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 
-import { GeneratorSelector } from "./generators/GeneratorSelector";
+import { GeneratorSelector } from "./Generators/GeneratorSelector";
 import { CliParser } from "./core/base/CliParser";
 
 async function main() {

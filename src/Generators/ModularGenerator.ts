@@ -24,7 +24,7 @@ import { toCamelCase, toPascalCase } from "../core/utils/StringUtils";
  * Supports multiple frameworks and distribution patterns with CLI flags
  */
 export class ModularGenerator implements Generator {
-  constructor(private cliConfig?: ParsedCliConfig) {}
+  constructor(private cliConfig?: ParsedCliConfig) { }
 
   async run(): Promise<void> {
     const config = await this.collectUserInput();
@@ -146,6 +146,20 @@ export class ModularGenerator implements Generator {
         { role: "separator", message: "── Styles ──" },
         { name: "styles", message: "Styles - CSS styles" },
         { name: "styles-native", message: "React Native Styles - StyleSheet" },
+
+        { role: "separator", message: "── NestJS Core ──" },
+        { name: "nestjs-module", message: "Module - NestJS module configuration" },
+        { name: "nestjs-service", message: "Service - Injectable service with DI" },
+        { name: "nestjs-dto", message: "DTOs (class-validator) - Data Transfer Objects" },
+        { name: "nestjs-dto-zod", message: "DTOs (Zod) - Schema-based validation" },
+
+        { role: "separator", message: "── NestJS Building Blocks ──" },
+        { name: "nestjs-pipe", message: "Pipe - Validation & transformation" },
+        { name: "nestjs-guard", message: "Guard - Authorization & roles" },
+        { name: "nestjs-interceptor", message: "Interceptor - Response transform & logging" },
+        { name: "nestjs-middleware", message: "Middleware - Request processing" },
+        { name: "nestjs-decorator", message: "Decorator - Custom decorators" },
+        { name: "nestjs-filter", message: "Filter - Exception handling" },
 
         { role: "separator", message: "── Utils ──" },
         { name: "utils", message: "Utils - Utility functions" },

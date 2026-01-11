@@ -53,7 +53,7 @@
 ## Features
 
 - 🎯 **Concept-Based File Organization**: Files grouped by their purpose (routes, services, domain, infrastructure, etc.)
-- 🔌 **Multiple Backend Frameworks**: Express, Hono, Next.js
+- 🔌 **Multiple Backend Frameworks**: Express, Hono, Next.js, NestJS (Express & Fastify)
 - ⚛️ **React & React Native Support**: Components, hooks, and platform-specific styles
 - 🏗️ **Clean Architecture Layers**: Domain, Services, Infrastructure separation
 - 📦 **Modular Templates**: Repository pattern, service layer, entities, types
@@ -95,8 +95,11 @@ Generate a complete module in seconds:
 # Interactive mode
 npx clegen@latest
 
-# With CLI flags
+# With CLI flags (Express)
 npx clegen@latest --name User --framework express --elements routes,service,types,repository
+
+# With NestJS
+npx clegen@latest --name User --framework nestjs-express --elements routes,nestjs-module,nestjs-service,nestjs-dto
 ```
 
 ---
@@ -112,6 +115,7 @@ npx clegen@latest
 ```
 
 The tool will ask you:
+
 1. **Module name** (e.g., User, Product, Order)
 2. **Framework** (Express, Hono, Next.js)
 3. **Elements to generate** (routes, services, components, etc.)
@@ -136,7 +140,7 @@ npx clegen@latest \
 | Flag | Shorthand | Description | Example |
 |------|-----------|-------------|---------|
 | `--name` | `-n` | Module name (PascalCase) | `User`, `Product` |
-| `--framework` | `-f` | Backend framework | `express`, `hono`, `nextjs` |
+| `--framework` | `-f` | Backend framework | `express`, `hono`, `nextjs`, `nestjs-express`, `nestjs-fastify` |
 | `--elements` | `-e` | Comma-separated elements | `routes,service,types` |
 | `--path` | `-p` | Module output path | `./src/modules/User` |
 | `--implementation` | `-i` | Implementation type | `MongoDB`, `PostgreSQL` |
@@ -193,7 +197,8 @@ User/
 |-----------|----------|---------|
 | **Express** | REST API routes | `Router()` with service integration |
 | **Hono** | Lightweight routes | `Hono()` app with handlers |
-| **Next.js** | API routes | Next.js API route handlers |
+| **Next.js** | API routes | Next.js API route handlers || **NestJS (Express)** | Full-featured controllers | `@Controller()` with decorators |
+| **NestJS (Fastify)** | High-performance controllers | NestJS with Fastify adapter |
 
 ### Frontend
 
@@ -222,6 +227,17 @@ Clegen can generate the following elements:
 | `schema` | Validation schemas (Zod) | infrastructure | `UserSchemas.ts` |
 | `implementation` | Repository implementation | infrastructure | `MongoDBUserRepository.ts` |
 | `utils` | Utility functions | utils | `UserUtils.ts` |
+| **NestJS Elements** | | | |
+| `nestjs-module` | NestJS module | infrastructure | `user.module.ts` |
+| `nestjs-service` | NestJS service | services | `user.service.ts` |
+| `nestjs-dto` | class-validator DTOs | domain | `user.dto.ts` |
+| `nestjs-dto-zod` | Zod schema DTOs | domain | `user.schema.ts` |
+| `nestjs-pipe` | Custom validation pipes | infrastructure | `user-validation.pipe.ts` |
+| `nestjs-guard` | Authorization guards | infrastructure | `user.guard.ts` |
+| `nestjs-interceptor` | Request/response interceptors | infrastructure | `user.interceptor.ts` |
+| `nestjs-middleware` | Middleware functions | infrastructure | `user.middleware.ts` |
+| `nestjs-decorator` | Custom decorators | infrastructure | `user.decorator.ts` |
+| `nestjs-filter` | Exception filters | infrastructure | `user-exception.filter.ts` |
 
 ---
 
@@ -238,6 +254,7 @@ npx clegen@latest \
 ```
 
 **Generated files:**
+
 ```
 Product/
 ├── routes/UserRouter.ts              # Express router
@@ -256,6 +273,7 @@ npx clegen@latest \
 ```
 
 **Generated files:**
+
 ```
 UserProfile/
 ├── components/UserProfile.tsx        # React component
@@ -273,6 +291,7 @@ npx clegen@latest \
 ```
 
 **Generated files:**
+
 ```
 Profile/
 ├── components/Profile.tsx            # React component
@@ -292,6 +311,7 @@ npx clegen@latest \
 ```
 
 **Generated files:**
+
 ```
 Order/
 ├── routes/OrderRoutes.ts             # Hono routes
@@ -304,6 +324,58 @@ Order/
 ├── domain/OrderRepository.ts         # Repository interface
 ├── infrastructure/OrderSchemas.ts    # Zod schemas
 └── infrastructure/PostgreSQLOrderRepository.ts  # PostgreSQL implementation
+```
+
+### Example 5: NestJS Full Module
+
+```bash
+npx clegen@latest \
+  --name Product \
+  --framework nestjs-express \
+  --elements routes,nestjs-module,nestjs-service,nestjs-dto-zod,nestjs-pipe,nestjs-guard,nestjs-interceptor
+```
+
+**Generated files:**
+
+```
+Product/
+├── routes/product.controller.ts              # NestJS controller with decorators
+├── services/product.service.ts               # Injectable service
+├── domain/product.schema.ts                  # Zod validation schemas
+├── infrastructure/product.module.ts          # NestJS module definition
+├── infrastructure/product-validation.pipe.ts # Custom validation pipe
+├── infrastructure/product.guard.ts           # Authorization guard
+└── infrastructure/product.interceptor.ts     # Response interceptor
+```
+
+**Key Features:**
+
+- Kebab-case file naming (e.g., `product.controller.ts`)
+- PascalCase class names (e.g., `ProductController`)
+- Full NestJS decorator support (`@Controller`, `@Injectable`, etc.)
+- Zod schema-based validation
+- Custom pipes, guards, and interceptors
+- Clean separation of concerns
+
+### Example 6: NestJS with Fastify Adapter
+
+```bash
+npx clegen@latest \
+  --name User \
+  --framework nestjs-fastify \
+  --elements routes,nestjs-module,nestjs-service,nestjs-dto,nestjs-middleware,nestjs-filter
+```
+
+**Generated files:**
+
+```
+User/
+├── routes/user.controller.ts             # High-performance Fastify controller
+├── services/user.service.ts              # Business logic service
+├── domain/user.dto.ts                    # class-validator DTOs with Swagger
+├── infrastructure/user.module.ts         # Module with Fastify configuration
+├── infrastructure/user.middleware.ts     # Custom middleware
+└── infrastructure/user-exception.filter.ts # Exception filter
 ```
 
 ---
@@ -336,7 +408,7 @@ export class FastifyPlugin extends TemplateReader implements FrameworkPlugin {
 }
 ```
 
-2. **Create the template** in `src/fixtures/templates/routes/`:
+1. **Create the template** in `src/fixtures/templates/routes/`:
 
 ```markdown
 <!-- src/fixtures/templates/routes/fastify.md -->
@@ -362,7 +434,7 @@ export async function {{ entity }}Routes(fastify: FastifyInstance) {
 }
 ```
 
-3. **Register the plugin** in `src/plugins/plugins.config.ts`:
+1. **Register the plugin** in `src/plugins/plugins.config.ts`:
 
 ```typescript
 import { FastifyPlugin } from './frameworks/FastifyPlugin';
@@ -400,7 +472,7 @@ export class GraphQLResolverTemplate extends TemplateReader implements TemplateP
 }
 ```
 
-2. **Create the template file**:
+1. **Create the template file**:
 
 ```markdown
 <!-- src/fixtures/templates/graphql/resolver.md -->
@@ -423,7 +495,7 @@ export const {{ entity }}Resolvers = {
 };
 ```
 
-3. **Register in plugins.config.ts**:
+1. **Register in plugins.config.ts**:
 
 ```typescript
 import { GraphQLResolverTemplate } from './templates/GraphQLResolverTemplate';
@@ -447,7 +519,7 @@ export type ModuleElement =
   | "graphql-schema";
 ```
 
-2. **Map to concept group** in `src/core/types/ConceptMapping.ts`:
+1. **Map to concept group** in `src/core/types/ConceptMapping.ts`:
 
 ```typescript
 export const ELEMENT_TO_GROUP: Record<ModuleElement, ConceptGroup> = {
@@ -457,7 +529,7 @@ export const ELEMENT_TO_GROUP: Record<ModuleElement, ConceptGroup> = {
 };
 ```
 
-3. **Add to multiselect** in `src/Generators/ModularGenerator.ts`:
+1. **Add to multiselect** in `src/Generators/ModularGenerator.ts`:
 
 ```typescript
 const { elements } = await prompt<{ elements: ModuleElement[] }>({
@@ -481,27 +553,32 @@ Contributions are welcome! Here's how you can help:
 ### Development Setup
 
 1. **Fork and clone the repository**:
+
 ```bash
 git clone https://github.com/mvrcoag/clegen.git
 cd clegen
 ```
 
-2. **Install dependencies**:
+1. **Install dependencies**:
+
 ```bash
 npm install
 ```
 
-3. **Build the project**:
+1. **Build the project**:
+
 ```bash
 npm run prepare
 ```
 
-4. **Link for local testing**:
+1. **Link for local testing**:
+
 ```bash
 npm link
 ```
 
-5. **Test your changes**:
+1. **Test your changes**:
+
 ```bash
 clegen --name Test --framework express --elements routes,service
 ```

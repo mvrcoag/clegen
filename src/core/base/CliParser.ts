@@ -104,25 +104,46 @@ Usage:
 
 Options:
   -n, --name <name>              Module name (e.g., User)
-  -f, --framework <framework>    Backend framework (express|hono|nextjs)
+  -f, --framework <framework>    Backend framework (see frameworks below)
   -e, --elements <elements>      Comma-separated elements to generate
   -p, --path <path>              Module path (default: ./src/<name>)
   -i, --implementation <type>    Implementation type (e.g., MongoDB, PostgreSQL)
   -h, --help                     Show this help message
 
+Frameworks:
+  none           No framework (plain TypeScript)
+  express        Express.js REST API
+  hono           Hono ultrafast web framework
+  nextjs         Next.js API routes
+  nestjs-express NestJS with Express adapter
+  nestjs-fastify NestJS with Fastify adapter (high performance)
+
 Elements:
-  routes, service, schema, component, hook, utils, styles,
-  styles-native, types, entity, repository, implementation
+  General:
+    routes, service, schema, component, hook, utils, styles,
+    styles-native, types, entity, repository, implementation
+
+  NestJS (follows kebab-case file naming):
+    nestjs-module      Module configuration (@Module)
+    nestjs-service     Injectable service with DI (@Injectable)
+    nestjs-dto         DTOs with class-validator decorators
+    nestjs-dto-zod     DTOs with Zod schema validation
+    nestjs-pipe        Custom validation pipes
+    nestjs-guard       Authorization guards (auth, roles)
+    nestjs-interceptor Response transform & logging
+    nestjs-middleware  Request processing middleware
+    nestjs-decorator   Custom parameter decorators
+    nestjs-filter      Exception filters for error handling
 
 Concept Groups:
   Files are organized by concept:
-    - routes/       → API endpoint handlers
-    - services/     → Business logic layer
-    - components/   → React components and hooks
-    - styles/       → CSS and React Native styles
-    - domain/       → Entities, types, repositories
-    - infrastructure/ → Schemas, implementations
-    - utils/        → Utility functions
+    - routes/         → API endpoint handlers
+    - services/       → Business logic layer
+    - components/     → React components and hooks
+    - styles/         → CSS and React Native styles
+    - domain/         → Entities, types, repositories, DTOs
+    - infrastructure/ → Schemas, modules, guards, pipes, etc.
+    - utils/          → Utility functions
 
 Examples:
   # Interactive mode (default)
@@ -138,6 +159,19 @@ Examples:
   # Generate with implementation
   clegen -n User -f express \\
     -e routes,service,repository,implementation -i MongoDB
+
+  # Full NestJS module with class-validator
+  clegen -n User -f nestjs-express \\
+    -e routes,nestjs-service,nestjs-module,nestjs-dto,nestjs-guard,nestjs-pipe
+
+  # Full NestJS module with Zod validation
+  clegen -n Product -f nestjs-fastify \\
+    -e routes,nestjs-service,nestjs-module,nestjs-dto-zod,nestjs-pipe
+
+  # NestJS with all building blocks
+  clegen -n Order -f nestjs-express \\
+    -e routes,nestjs-service,nestjs-module,nestjs-dto,nestjs-guard,\\
+       nestjs-interceptor,nestjs-middleware,nestjs-decorator,nestjs-filter
 
   # React Native module with styles
   clegen -n Profile -e component,hook,styles-native
