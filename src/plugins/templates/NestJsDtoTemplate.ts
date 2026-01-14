@@ -14,7 +14,7 @@ import { TemplateReader } from '../../core/base/TemplateReader';
 export class NestJsDtoTemplate extends TemplateReader implements TemplateProvider {
     readonly id = 'nestjs-dto' as const;
     readonly name = 'NestJS DTOs';
-    readonly category: TemplateCategory = 'domain';
+    readonly category: TemplateCategory = 'infrastructure';
     readonly description = 'NestJS Data Transfer Objects with validation';
 
     async generate(context: GenerationContext): Promise<FileOutput> {

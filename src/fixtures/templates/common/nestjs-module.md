@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { {{ Entity }}Controller } from './{{ Entity }}Controller';
-import { {{ Entity }}Service } from './{{ Entity }}Service';
+import { {{ Entity }}Controller } from '../routes/{{ Entity }}Controller';
+import { {{ Entity }}Service } from '../services/{{ Entity }}Service';
 
 /**
 

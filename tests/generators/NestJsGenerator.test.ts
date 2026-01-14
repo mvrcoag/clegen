@@ -339,7 +339,7 @@ export class {{ Entity }}ExceptionFilter implements ExceptionFilter {
                 // Verify DTO
                 const dtoCall = writeCalls.find(call => call[0].toString().includes('.dto.ts'));
                 expect(dtoCall).toBeDefined();
-                expect(dtoCall![0].toString().replace(/\\/g, '/')).toContain('domain/blog-post.dto.ts');
+                expect(dtoCall![0].toString().replace(/\\/g, '/')).toContain('infrastructure/blog-post.dto.ts');
             });
         });
 

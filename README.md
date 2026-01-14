@@ -197,7 +197,8 @@ User/
 |-----------|----------|---------|
 | **Express** | REST API routes | `Router()` with service integration |
 | **Hono** | Lightweight routes | `Hono()` app with handlers |
-| **Next.js** | API routes | Next.js API route handlers || **NestJS (Express)** | Full-featured controllers | `@Controller()` with decorators |
+| **Next.js** | API routes | Next.js API route handlers |
+| **NestJS (Express)** | Full-featured controllers | `@Controller()` with decorators |
 | **NestJS (Fastify)** | High-performance controllers | NestJS with Fastify adapter |
 
 ### Frontend
@@ -230,8 +231,8 @@ Clegen can generate the following elements:
 | **NestJS Elements** | | | |
 | `nestjs-module` | NestJS module | infrastructure | `user.module.ts` |
 | `nestjs-service` | NestJS service | services | `user.service.ts` |
-| `nestjs-dto` | class-validator DTOs | domain | `user.dto.ts` |
-| `nestjs-dto-zod` | Zod schema DTOs | domain | `user.schema.ts` |
+| `nestjs-dto` | class-validator DTOs | infrastructure | `user.dto.ts` |
+| `nestjs-dto-zod` | Zod schema DTOs | infrastructure | `user.schema.ts` |
 | `nestjs-pipe` | Custom validation pipes | infrastructure | `user-validation.pipe.ts` |
 | `nestjs-guard` | Authorization guards | infrastructure | `user.guard.ts` |
 | `nestjs-interceptor` | Request/response interceptors | infrastructure | `user.interceptor.ts` |
@@ -341,7 +342,7 @@ npx clegen@latest \
 Product/
 ├── routes/product.controller.ts              # NestJS controller with decorators
 ├── services/product.service.ts               # Injectable service
-├── domain/product.schema.ts                  # Zod validation schemas
+├── infrastructure/product.schema.ts          # Zod validation schemas
 ├── infrastructure/product.module.ts          # NestJS module definition
 ├── infrastructure/product-validation.pipe.ts # Custom validation pipe
 ├── infrastructure/product.guard.ts           # Authorization guard
@@ -372,7 +373,7 @@ npx clegen@latest \
 User/
 ├── routes/user.controller.ts             # High-performance Fastify controller
 ├── services/user.service.ts              # Business logic service
-├── domain/user.dto.ts                    # class-validator DTOs with Swagger
+├── infrastructure/user.dto.ts            # class-validator DTOs with Swagger
 ├── infrastructure/user.module.ts         # Module with Fastify configuration
 ├── infrastructure/user.middleware.ts     # Custom middleware
 └── infrastructure/user-exception.filter.ts # Exception filter
@@ -408,7 +409,7 @@ export class FastifyPlugin extends TemplateReader implements FrameworkPlugin {
 }
 ```
 
-1. **Create the template** in `src/fixtures/templates/routes/`:
+2. **Create the template** in `src/fixtures/templates/routes/`:
 
 ```markdown
 <!-- src/fixtures/templates/routes/fastify.md -->
@@ -434,7 +435,7 @@ export async function {{ entity }}Routes(fastify: FastifyInstance) {
 }
 ```
 
-1. **Register the plugin** in `src/plugins/plugins.config.ts`:
+3. **Register the plugin** in `src/plugins/plugins.config.ts`:
 
 ```typescript
 import { FastifyPlugin } from './frameworks/FastifyPlugin';
@@ -472,7 +473,7 @@ export class GraphQLResolverTemplate extends TemplateReader implements TemplateP
 }
 ```
 
-1. **Create the template file**:
+2. **Create the template file**:
 
 ```markdown
 <!-- src/fixtures/templates/graphql/resolver.md -->
@@ -495,7 +496,7 @@ export const {{ entity }}Resolvers = {
 };
 ```
 
-1. **Register in plugins.config.ts**:
+3. **Register in plugins.config.ts**:
 
 ```typescript
 import { GraphQLResolverTemplate } from './templates/GraphQLResolverTemplate';
@@ -519,7 +520,7 @@ export type ModuleElement =
   | "graphql-schema";
 ```
 
-1. **Map to concept group** in `src/core/types/ConceptMapping.ts`:
+2. **Map to concept group** in `src/core/types/ConceptMapping.ts`:
 
 ```typescript
 export const ELEMENT_TO_GROUP: Record<ModuleElement, ConceptGroup> = {
@@ -529,7 +530,7 @@ export const ELEMENT_TO_GROUP: Record<ModuleElement, ConceptGroup> = {
 };
 ```
 
-1. **Add to multiselect** in `src/Generators/ModularGenerator.ts`:
+3. **Add to multiselect** in `src/Generators/ModularGenerator.ts`:
 
 ```typescript
 const { elements } = await prompt<{ elements: ModuleElement[] }>({
@@ -559,25 +560,25 @@ git clone https://github.com/mvrcoag/clegen.git
 cd clegen
 ```
 
-1. **Install dependencies**:
+2. **Install dependencies**:
 
 ```bash
 npm install
 ```
 
-1. **Build the project**:
+3. **Build the project**:
 
 ```bash
 npm run prepare
 ```
 
-1. **Link for local testing**:
+4. **Link for local testing**:
 
 ```bash
 npm link
 ```
 
-1. **Test your changes**:
+5. **Test your changes**:
 
 ```bash
 clegen --name Test --framework express --elements routes,service

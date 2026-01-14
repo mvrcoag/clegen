@@ -14,7 +14,7 @@ import { TemplateReader } from '../../core/base/TemplateReader';
 export class NestJsDtoZodTemplate extends TemplateReader implements TemplateProvider {
     readonly id = 'nestjs-dto-zod' as const;
     readonly name = 'NestJS DTOs (Zod)';
-    readonly category: TemplateCategory = 'domain';
+    readonly category: TemplateCategory = 'infrastructure';
     readonly description = 'NestJS DTOs with Zod validation schemas';
 
     async generate(context: GenerationContext): Promise<FileOutput> {

@@ -14,9 +14,9 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
-import { {{ Entity }}Service } from './{{ Entity }}Service';
-import { {{ Entity }} } from './{{ Entity }}Types';
-import { Create{{ Entity }}Dto, Update{{ Entity }}Dto, {{ Entity }}ResponseDto } from './{{ Entity }}Dto';
+import { {{ Entity }}Service } from '../services/{{ Entity }}Service';
+import { {{ Entity }} } from '../domain/{{ Entity }}Types';
+import { Create{{ Entity }}Dto, Update{{ Entity }}Dto, {{ Entity }}ResponseDto } from '../infrastructure/{{ Entity }}Dto';
 
 /**
 
@@ -73,7 +73,7 @@ export class {{ Entity }}Controller {
     if (!{{ entity }}) {
       throw new NotFoundException(`{{ Entity }} with ID "${id}" not found`);
     }
-    
+
     return {{ entity }};
   }
 
@@ -128,7 +128,7 @@ export class {{ Entity }}Controller {
     if (!{{ entity }}) {
       throw new NotFoundException(`{{ Entity }} with ID "${id}" not found`);
     }
-    
+
     return this.{{ entity }}Service.update(id, update{{ Entity }}Dto);
   }
 
@@ -155,7 +155,7 @@ export class {{ Entity }}Controller {
     if (!{{ entity }}) {
       throw new NotFoundException(`{{ Entity }} with ID "${id}" not found`);
     }
-    
+
     await this.{{ entity }}Service.delete(id);
   }
 }

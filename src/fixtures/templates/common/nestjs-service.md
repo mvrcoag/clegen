@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, Logger } from '@nestjs/common';
-import { {{ Entity }} } from './{{ Entity }}Types';
-import { Create{{ Entity }}Dto, Update{{ Entity }}Dto } from './{{ Entity }}Dto';
+import { {{ Entity }} } from '../domain/{{ Entity }}Types';
+import { Create{{ Entity }}Dto, Update{{ Entity }}Dto } from '../infrastructure/{{ Entity }}Dto';
 
 /**
 
