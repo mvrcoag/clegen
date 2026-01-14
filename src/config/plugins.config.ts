@@ -6,6 +6,8 @@ import { ExpressPlugin } from "../plugins/frameworks/ExpressPlugin";
 import { HonoPlugin } from "../plugins/frameworks/HonoPlugin";
 import { NextJsPlugin } from "../plugins/frameworks/NextJsPlugin";
 import { NoFrameworkPlugin } from "../plugins/frameworks/NoFrameworkPlugin";
+import { NestJsExpressPlugin } from "../plugins/frameworks/NestJsExpressPlugin";
+import { NestJsFastifyPlugin } from "../plugins/frameworks/NestJsFastifyPlugin";
 
 // Template providers
 import { ServiceTemplate } from "../plugins/templates/ServiceTemplate";
@@ -19,6 +21,16 @@ import { TypesTemplate } from "../plugins/templates/TypesTemplate";
 import { RepositoryTemplate } from "../plugins/templates/RepositoryTemplate";
 import { ImplementationTemplate } from "../plugins/templates/ImplementationTemplate";
 import { EntityTemplate } from "../plugins/templates/EntityTemplate";
+import { NestJsModuleTemplate } from "../plugins/templates/NestJsModuleTemplate";
+import { NestJsDtoTemplate } from "../plugins/templates/NestJsDtoTemplate";
+import { NestJsDtoZodTemplate } from "../plugins/templates/NestJsDtoZodTemplate";
+import { NestJsServiceTemplate } from "../plugins/templates/NestJsServiceTemplate";
+import { NestJsPipeTemplate } from "../plugins/templates/NestJsPipeTemplate";
+import { NestJsMiddlewareTemplate } from "../plugins/templates/NestJsMiddlewareTemplate";
+import { NestJsGuardTemplate } from "../plugins/templates/NestJsGuardTemplate";
+import { NestJsInterceptorTemplate } from "../plugins/templates/NestJsInterceptorTemplate";
+import { NestJsDecoratorTemplate } from "../plugins/templates/NestJsDecoratorTemplate";
+import { NestJsFilterTemplate } from "../plugins/templates/NestJsFilterTemplate";
 
 /**
  * Registry of available framework plugins
@@ -33,6 +45,8 @@ export const frameworkPlugins: FrameworkPlugin[] = [
   new ExpressPlugin(),
   new HonoPlugin(),
   new NextJsPlugin(),
+  new NestJsExpressPlugin(),
+  new NestJsFastifyPlugin(),
 ];
 
 /**
@@ -55,6 +69,16 @@ export const templateProviders: TemplateProvider[] = [
   new RepositoryTemplate(),
   new ImplementationTemplate(),
   new EntityTemplate(),
+  new NestJsModuleTemplate(),
+  new NestJsDtoTemplate(),
+  new NestJsDtoZodTemplate(),
+  new NestJsServiceTemplate(),
+  new NestJsPipeTemplate(),
+  new NestJsMiddlewareTemplate(),
+  new NestJsGuardTemplate(),
+  new NestJsInterceptorTemplate(),
+  new NestJsDecoratorTemplate(),
+  new NestJsFilterTemplate(),
 ];
 
 /**

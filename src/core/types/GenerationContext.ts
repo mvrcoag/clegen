@@ -51,7 +51,17 @@ export type ModuleElement =
   | "types"
   | "entity"
   | "repository"
-  | "implementation";
+  | "implementation"
+  | "nestjs-module"
+  | "nestjs-dto"
+  | "nestjs-dto-zod"
+  | "nestjs-service"
+  | "nestjs-pipe"
+  | "nestjs-middleware"
+  | "nestjs-guard"
+  | "nestjs-interceptor"
+  | "nestjs-decorator"
+  | "nestjs-filter";
 
 /**
  * Category for template classification

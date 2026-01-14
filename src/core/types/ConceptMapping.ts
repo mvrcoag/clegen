@@ -14,6 +14,7 @@ export const ELEMENT_TO_GROUP: Record<ModuleElement, ConceptGroup> = {
 
   // Services group
   service: 'services',
+  'nestjs-service': 'services',
 
   // Routes group
   routes: 'routes',
@@ -26,6 +27,15 @@ export const ELEMENT_TO_GROUP: Record<ModuleElement, ConceptGroup> = {
   // Infrastructure group
   implementation: 'infrastructure',
   schema: 'infrastructure',
+  'nestjs-dto': 'infrastructure',
+  'nestjs-dto-zod': 'infrastructure',
+  'nestjs-module': 'infrastructure',
+  'nestjs-pipe': 'infrastructure',
+  'nestjs-middleware': 'infrastructure',
+  'nestjs-guard': 'infrastructure',
+  'nestjs-interceptor': 'infrastructure',
+  'nestjs-decorator': 'infrastructure',
+  'nestjs-filter': 'infrastructure',
 
   // Utils group
   utils: 'utils',

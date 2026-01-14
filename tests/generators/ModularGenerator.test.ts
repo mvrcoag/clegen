@@ -1,4 +1,4 @@
-import { ModularGenerator } from '../../src/generators/ModularGenerator';
+import { ModularGenerator } from '../../src/Generators/ModularGenerator';
 import * as fs from 'fs/promises';
 import { ParsedCliConfig } from '../../src/core/types/CliOptions';
 
@@ -28,22 +28,19 @@ describe('ModularGenerator', () => {
 
     // Check generated file names
     const writeCalls = mockFs.writeFile.mock.calls;
-    
+
     // We expect at least one call for the types file
     expect(writeCalls.length).toBeGreaterThan(0);
 
     const typesFileCall = writeCalls.find(call => call[0].toString().includes('Types.ts'));
     expect(typesFileCall).toBeDefined();
-    
+
     const filePath = typesFileCall![0].toString();
-    
-    // CURRENT BUG: It generates emergency-fundTypes.ts
-    // EXPECTED: EmergencyFundTypes.ts
-    // We will assert the current BUGGY behavior first to confirm reproduction, 
-    // or assert the CORRECT behavior to watch it fail.
-    // The instructions say "run the test to confirm failure". So I will assert the CORRECT behavior.
-    
-    expect(filePath).toContain('src/modules/emergency-fund/domain/EmergencyFundTypes.ts');
+
+    // Normalize path separators for cross-platform compatibility
+    const normalizedPath = filePath.replace(/\\/g, '/');
+
+    expect(normalizedPath).toContain('src/modules/emergency-fund/domain/EmergencyFundTypes.ts');
   });
 
   it('should generate files with correct casing for camelCase module names', async () => {
@@ -59,8 +56,49 @@ describe('ModularGenerator', () => {
 
     const writeCalls = mockFs.writeFile.mock.calls;
     const typesFileCall = writeCalls.find(call => call[0].toString().includes('Types.ts'));
-    
+
     expect(typesFileCall).toBeDefined();
-    expect(typesFileCall![0].toString()).toContain('src/modules/userProfile/domain/UserProfileTypes.ts');
+    // Normalize path separators for cross-platform compatibility
+    const normalizedPath = typesFileCall![0].toString().replace(/\\/g, '/');
+    expect(normalizedPath).toContain('src/modules/userProfile/domain/UserProfileTypes.ts');
+  });
+
+  it('should generate files with correct casing for PascalCase module names', async () => {
+    const config: ParsedCliConfig = {
+      name: 'BlogPost',
+      path: 'src/modules/BlogPost',
+      elements: ['types'],
+      framework: 'none'
+    };
+
+    const generator = new ModularGenerator(config);
+    await generator.run();
+
+    const writeCalls = mockFs.writeFile.mock.calls;
+    const typesFileCall = writeCalls.find(call => call[0].toString().includes('Types.ts'));
+
+    expect(typesFileCall).toBeDefined();
+    const normalizedPath = typesFileCall![0].toString().replace(/\\/g, '/');
+    expect(normalizedPath).toContain('src/modules/BlogPost/domain/BlogPostTypes.ts');
+  });
+
+  it('should generate files with correct casing for single word module names', async () => {
+    const config: ParsedCliConfig = {
+      name: 'user',
+      path: 'src/modules/user',
+      elements: ['types'],
+      framework: 'none'
+    };
+
+    const generator = new ModularGenerator(config);
+    await generator.run();
+
+    const writeCalls = mockFs.writeFile.mock.calls;
+    const typesFileCall = writeCalls.find(call => call[0].toString().includes('Types.ts'));
+
+    expect(typesFileCall).toBeDefined();
+    const normalizedPath = typesFileCall![0].toString().replace(/\\/g, '/');
+    expect(normalizedPath).toContain('src/modules/user/domain/UserTypes.ts');
   });
 });
+
